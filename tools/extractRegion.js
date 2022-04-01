@@ -1,15 +1,14 @@
-// In: Image filename as a command line argument.
-
+// Cut out a rectangular region of an image, and save this region as a new (rgb) image.
+// Parameters: Source file, left, top, width, height, destination file.
+//                          ( the rectangular region )
+// In Powershell: node extractRegion test_graphics/arthur_right.png 0 0 16 16 myslice.png
 const sharp = require("sharp");
-const inFile = process.argv[2];
-const outFile = process.argv[3];
 
-async function extractRegion(sourceFile, destinationFile) {
-  sharp(sourceFile)
-    .extract({ left: 0, top: 0, width: 16, height: 16 })
+async function extractRegion() {
+  sharp(process.argv[2])
+    .extract({ left: parseInt(process.argv[3]), top: parseInt(process.argv[4]), width: parseInt(process.argv[5]), height: parseInt(process.argv[6]) })
     .toFormat ('png')
-    .toFile("mySlice.png", function(err) {
-  // console.log(metadata);
+    .toFile(process.argv[7], function(err) {
   });
 };
-extractRegion(inFile);
+extractRegion();
