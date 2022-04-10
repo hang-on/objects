@@ -164,9 +164,7 @@
       label_2:
         nop
     +:
-
-
-
+    
 
   ; ------- end of tests --------------------------------------------------------
   .equ TEST_SUCCES 1      ; Palette colors.

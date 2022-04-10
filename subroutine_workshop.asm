@@ -8,9 +8,10 @@
 .section "Subroutine workshop" free
 ; -----------------------------------------------------------------------------
   get_index:
-    
-  ret
+    ; In: HL: Label
+    ;     DE: Jump table base addresse
 
+  ret
 
 
 .ends
