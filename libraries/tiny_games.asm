@@ -224,7 +224,7 @@ ret
     ; SMS-Power!
     ; Returns an 8-bit pseudo-random number in a
     .ifdef TEST_MODE
-      ld a,(random_number)
+      ld a,(rnd_seed)
       ret
     .endif
     push hl
