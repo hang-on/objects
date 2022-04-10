@@ -50,10 +50,14 @@
 00:c0dc test_kernel_bank
 00:c0dd test_kernel_destination
 00:c0df test_kernel_bytes_written
-00:07b9 .
-00:07a1 test_bench
-00:07a1 exit_with_succes
-00:07ac exit_with_failure
+00:07ba .
+00:078b test_bench
+00:078e jump_table
+00:0794 label_0
+00:0795 label_1
+00:0796 label_2
+00:0797 exit_with_succes
+00:07a2 exit_with_failure
 00:c0c2 temp_byte
 00:c0c3 temp_word
 00:c0c4 temp_counter
@@ -74,7 +78,7 @@
 00:0650 main_loop
 00:0660 initialize_part_0
 00:068a run_part_0
-00:078b *WLA_SDSC_PRG_AUTHOR_PTR
+00:07ad *WLA_SDSC_PRG_AUTHOR_PTR
 00:0025 *WLA_SDSC_PRG_NAME_PTR
 00:002d *WLA_SDSC_PRG_NOTES_PTR
 
@@ -127,7 +131,11 @@
 00000001 _sizeof_test_kernel_bank
 00000002 _sizeof_test_kernel_destination
 00000002 _sizeof_test_kernel_bytes_written
-00000000 _sizeof_test_bench
+00000003 _sizeof_test_bench
+00000006 _sizeof_jump_table
+00000001 _sizeof_label_0
+00000001 _sizeof_label_1
+00000001 _sizeof_label_2
 0000000b _sizeof_exit_with_succes
 0000000b _sizeof_exit_with_failure
 00000001 _sizeof_temp_byte

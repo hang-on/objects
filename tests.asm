@@ -110,6 +110,16 @@
   .endr
 .endm
 
+  .macro ADD_DATA
+  jp +
+    __:
+      .rept NARGS
+        .db \1
+        .shift
+      .endr
+  +:
+.endm
+
 .ramsection "Fake VRAM stuff" slot 3
   ; Use to test writes to the SAT buffer
   fake_sat_index db
@@ -143,6 +153,18 @@
 ; -----------------------------------------------------------------------------
 .section "tests" free
   test_bench:
+    ; Test 1:
+    jp +
+      jump_table:
+        .dw label_0 label_1 label_2
+      label_0:
+        nop
+      label_1:
+        nop
+      label_2:
+        nop
+    +:
+
 
 
 
