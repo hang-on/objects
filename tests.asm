@@ -153,7 +153,6 @@
 ; -----------------------------------------------------------------------------
 .section "tests" free
   test_bench:
-    ; Test 1:
     jp +
       jump_table:
         .dw label_0 label_1 label_2
@@ -164,7 +163,15 @@
       label_2:
         nop
     +:
+
+    ; Test 1:
+    ld hl,label_0
+    ld de,jump_table
+    ld b,6
+    call search_word_array
+    ASSERT_CARRY_SET
     
+
 
   ; ------- end of tests --------------------------------------------------------
   .equ TEST_SUCCES 1      ; Palette colors.
