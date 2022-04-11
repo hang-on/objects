@@ -55,19 +55,20 @@
 
   search_word_array:
     ld a,h
-    ld (search_item),a
-    ld a,l
-    ld (search_item+1),a
+    ;ld (search_item),a
     
     ld c,l
     ex de,hl
+    ld e,a
     ld d,0
+    
     -:
       ld a,(hl)
       cp c
       jp nz,+
         ; First byte matches!
-        ld a,(search_item)
+        ;ld a,(search_item)
+        ld a,e
         inc hl
         dec b
         cp (hl)
