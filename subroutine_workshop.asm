@@ -52,6 +52,7 @@
   ret
 
   search_word_array:
-    scf
+   scf 
+
   ret
 .ends

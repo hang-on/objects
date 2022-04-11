@@ -162,6 +162,8 @@
         nop
       label_2:
         nop
+      label_3:
+        nop
     +:
 
     ; Test 1:
@@ -170,6 +172,7 @@
     ld b,6
     call search_word_array
     ASSERT_CARRY_SET
+
     
 
 
