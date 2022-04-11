@@ -224,6 +224,9 @@
     ASSERT_CARRY_SET
     ASSERT_A_EQUALS 2
 
+    ld b,_sizeof_jump_table/2
+    ld a,b
+    ASSERT_A_EQUALS 3
 
 
   ; ------- end of tests --------------------------------------------------------
