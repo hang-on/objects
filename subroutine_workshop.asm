@@ -54,34 +54,38 @@
 
 
   search_word_array:
-    ld a,h
-    
-    ld c,l
-    ex de,hl
-    ld e,a
-    ld d,c
-    
-    ld c,0
-    
+    ; Search for a given word in an array, and return with carry and index
+    ; if word is found. 
+    ; In:   HL = Word to search for.
+    ;       DE = Pointer to word array to search.
+    ;       B = Word items to search.
+    ; Out:  Carry set if word is found, else carry reset.
+    ;       A = Index of wound found (if any).
+    ; Uses: A, BC, DE, HL.
+
+    ld a,h    ; Preserve MSB of search item.         
+    ld c,l    ; Preserve LSB of search item.
+    ex de,hl  ; Get the word array pointer into HL.
+    ld e,a    ; Load search item MSB into E.
+    ld d,c    ; Load search item LSB into D  
+    ld c,0    ; Reset C to count table index.
     -:
-      ld a,(hl)
-      cp d
-      jp nz,+
-        ; First byte matches!
-        ld a,e
-        inc hl
-        dec b
-        cp (hl)
-        jp nz,+
-          ; Second byte matches!
-          ld a,c
-          scf
-          ret 
-      +:
-      inc hl
-      inc hl
-      inc c
-    djnz -
-    or a
-  ret
+      ld a,(hl)       ; Load table item LSB.
+      cp d            ; Compare to search item LSB.
+      jp nz,+         ; If no match, then skip ahead...
+        ld a,e        ; Match! Get the search item MSB.
+        inc hl        ; Point to table item MSB.
+        cp (hl)       ; Compare search item MSB to table item MSB.
+        dec hl        ; Back to table item LSB (see the 2 x inc hl below).
+        jp nz,+       ; If no match, skip ahead...
+          ld a,c      ; Match! Load the table index into A
+          scf         ; Set the carry flag.
+          ret         ; Return.
+      +:    
+      inc hl          ; Skip MSB of table item.
+      inc hl          ; Point to LSB of next table item.
+      inc c           ; Increment index counter.
+    djnz -            ; Next item...
+    or a              ; Fall through to here... reset carry flag.
+  ret                 ; Return: Word not found.
 .ends
