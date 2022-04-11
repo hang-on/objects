@@ -156,6 +156,8 @@
     jp +
       jump_table:
         .dw label_0 label_1 label_2
+        __:
+
       label_0:
         nop
       label_1:
@@ -205,6 +207,15 @@
     ld b,3
     call search_word_array
     ASSERT_CARRY_RESET
+
+    ; Test 4
+    ld hl,label_0
+    ld de,jump_table
+    ld b,_sizeof_jump_table
+    call search_word_array
+    ASSERT_CARRY_SET
+    
+
 
 
   ; ------- end of tests --------------------------------------------------------
