@@ -54,7 +54,7 @@
 00:c0dc test_kernel_bank
 00:c0dd test_kernel_destination
 00:c0df test_kernel_bytes_written
-00:07f5 .
+00:07f6 .
 00:0699 test_bench
 00:069c jump_table
 00:06a2 label_0
@@ -84,7 +84,7 @@
 00:0650 main_loop
 00:0660 initialize_part_0
 00:068a run_part_0
-00:084d *WLA_SDSC_PRG_AUTHOR_PTR
+00:084e *WLA_SDSC_PRG_AUTHOR_PTR
 00:0025 *WLA_SDSC_PRG_NAME_PTR
 00:002d *WLA_SDSC_PRG_NOTES_PTR
 
@@ -136,7 +136,7 @@
 00000001 _sizeof_get_index
 0000000b _sizeof_compare_words
 00000012 _sizeof_search_byte_array
-0000001c _sizeof_search_word_array
+0000001d _sizeof_search_word_array
 00000002 _sizeof_test_kernel_source
 00000001 _sizeof_test_kernel_bank
 00000002 _sizeof_test_kernel_destination
