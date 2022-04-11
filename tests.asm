@@ -211,10 +211,18 @@
     ; Test 4
     ld hl,label_0
     ld de,jump_table
-    ld b,_sizeof_jump_table
+    ld b,_sizeof_jump_table/2
     call search_word_array
     ASSERT_CARRY_SET
-    
+    ASSERT_A_EQUALS 0
+
+    ; Test 5
+    ld hl,label_2
+    ld de,jump_table
+    ld b,_sizeof_jump_table/2
+    call search_word_array
+    ASSERT_CARRY_SET
+    ASSERT_A_EQUALS 2
 
 
 
