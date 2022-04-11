@@ -1,6 +1,6 @@
 
 .ramsection "Ram section for library being developed" slot 3
-
+  search_item dw
 .ends
 
 .bank 0 slot 0
@@ -51,8 +51,36 @@
     ld a,d
   ret
 
-  search_word_array:
-   scf 
 
+
+  search_word_array:
+    ld a,h
+    ld (search_item),a
+    ld a,l
+    ld (search_item+1),a
+    
+    ld c,l
+    ex de,hl
+    ld d,0
+    -:
+      ld a,(hl)
+      cp c
+      jp nz,+
+        ; First byte matches!
+        ld a,(search_item)
+        inc hl
+        dec b
+        cp (hl)
+        jp nz,+
+          ; Second byte matches!
+          ld a,d
+          scf
+          ret 
+      +:
+      inc hl
+      inc hl
+      inc d
+    djnz -
+    or a
   ret
 .ends
