@@ -1,17 +1,12 @@
 
 .ramsection "Ram section for library being developed" slot 3
-  search_item dw
+
 .ends
 
 .bank 0 slot 0
 ; -----------------------------------------------------------------------------
 .section "Subroutine workshop" free
 ; -----------------------------------------------------------------------------
-  get_index:
-    ; In: HL: Label
-    ;     DE: Jump table base addresse
-
-  ret
 
   compare_words:
     ; In: HL and DE holds the words to compare.
