@@ -17,6 +17,7 @@
     ei
     halt
     halt
+    halt
     call load_sat
     
     ld a,ENABLED
