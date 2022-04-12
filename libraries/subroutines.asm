@@ -8,6 +8,16 @@
   ld (game_state),a
 .endm
 
+.macro INITIALIZE_VDP ARGS PALETTE
+  ld hl,vdp_register_init
+  call initialize_vdp_registers    
+  call clear_vram
+  ld a,0
+  ld b,32
+  ld hl,PALETTE
+  call load_cram
+.endm
+
 .bank 0 slot 0
 .section "Subroutines" free
 

@@ -16,14 +16,16 @@
   banksize $4000
   banks 8
 .endro
-;
+
 .include "libraries/sms_constants.asm"
 
+; -----------------------------------------------------------------------------
 ;.equ TEST_MODE           ; Enable/disable test mode.
-
+; -----------------------------------------------------------------------------
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
+
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
 .include "libraries/input_lib.asm"
@@ -105,10 +107,13 @@
 ; -----------------------------------------------------------------------------
   init:
   ; Run this function once (on game load/reset). 
-    ld hl,vdp_register_init
-    call initialize_vdp_registers
-    call clear_vram
-    call clear_cram
+    INITIALIZE_VDP all_black_palette
+    jp +
+      all_black_palette:
+        .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+        .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 
+    +:
+
 
     ; Seed the randomizer.
     ld hl,my_seed
@@ -123,7 +128,6 @@
     .ifdef TEST_MODE
       jp initialize_test_bench
     .endif
-
     SET_GAME_STATE initialize_metasprite_demo
 
   jp main_loop
