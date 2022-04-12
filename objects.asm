@@ -23,7 +23,7 @@
 .include "libraries/sms_constants.asm"
 
 ; Remove comment to enable unit testing
-.equ TEST_MODE
+;.equ TEST_MODE
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
@@ -135,17 +135,6 @@
         .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
     +:
 
-    .ifdef TEST_MODE
-      ld a,0
-      ld b,32
-      ld hl,test_palette
-      call load_cram
-
-      ld a,ENABLED
-      call set_display
-      jp test_bench
-    .endif
-
     ; Seed the randomizer.
     ld hl,my_seed
     ld a,(hl)
@@ -157,6 +146,18 @@
       my_seed:
       .dbrnd 2, 0, 255
     +:
+
+
+    .ifdef TEST_MODE
+      ld a,0
+      ld b,32
+      ld hl,test_palette
+      call load_cram
+
+      ld a,ENABLED
+      call set_display
+      jp test_bench
+    .endif
 
     ld a,INITIAL_GAMESTATE
     ld (game_state),a
@@ -181,11 +182,11 @@
     ld l,a              ; HL now contains the address of the state handler.
     jp (hl)             ; Jump to this handler - note, not call!
   ; ---------------------------------------------------------------------------
-  .equ INITIALIZE_PART_0 0
-  .equ RUN_PART_0 1
-  .equ INITIAL_GAMESTATE INITIALIZE_PART_0
+  .equ INITIALIZE_METASPRITE_DEMO 0
+  .equ RUN_METASPRITE_DEMO 1
+  .equ INITIAL_GAMESTATE INITIALIZE_METASPRITE_DEMO
     game_state_jump_table:
-    .dw initialize_part_0, run_part_0 
+    .dw initialize_metasprite_demo, run_metasprite_demo 
 
 
 

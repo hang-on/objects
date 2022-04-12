@@ -2,7 +2,7 @@
 ; -----------------------------------------------------------------------------
 .section "Metasprite Demo" free
 ; -----------------------------------------------------------------------------
-  initialize_part_0:
+  initialize_metasprite_demo:
     di
     ld hl,vdp_register_init
     call initialize_vdp_registers    
@@ -23,12 +23,12 @@
     ld a,ENABLED
     call set_display
 
-    ld a,RUN_PART_0
+    ld a,RUN_METASPRITE_DEMO
     ld (game_state),a
   jp main_loop
 
 
-  run_part_0:
+  run_metasprite_demo:
     call wait_for_vblank
     
     ; Begin vblank critical code (DRAW) ---------------------------------------
