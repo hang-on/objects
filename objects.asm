@@ -159,7 +159,7 @@
       jp test_bench
     .endif
 
-    ld a,INITIAL_GAMESTATE
+    ld a,0
     ld (game_state),a
     
   jp main_loop
@@ -174,7 +174,7 @@
     add a,a             ; Double it up because jump table is word-sized.
     ld h,0              ; Set up HL as the jump table offset.
     ld l,a
-    ld de,game_state_jump_table ; Point to JT base address
+    ld de,game_states   ; Point to JT base address
     add hl,de           ; Apply offset to base address.
     ld a,(hl)           ; Get LSB from table.
     inc hl              ; Increment pointer.
@@ -184,8 +184,7 @@
   ; ---------------------------------------------------------------------------
   .equ INITIALIZE_METASPRITE_DEMO 0
   .equ RUN_METASPRITE_DEMO 1
-  .equ INITIAL_GAMESTATE INITIALIZE_METASPRITE_DEMO
-    game_state_jump_table:
+    game_states:
     .dw initialize_metasprite_demo, run_metasprite_demo 
 
 
