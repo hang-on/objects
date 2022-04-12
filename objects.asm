@@ -23,7 +23,7 @@
 .include "libraries/sms_constants.asm"
 
 ; Remove comment to enable unit testing
-;.equ TEST_MODE
+.equ TEST_MODE
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
@@ -34,7 +34,7 @@
 .include "libraries/tiny_games.asm"
 
 .include "subroutine_workshop.asm"
-.include "tests.asm"
+.include "game_states/tests.asm"
 .include "game_states/metasprite_demo.asm"        
 
 ; -----------------------------------------------------------------------------
