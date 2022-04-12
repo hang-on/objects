@@ -20,14 +20,6 @@
 .include "libraries/sms_constants.asm"
 
 ;.equ TEST_MODE           ; Enable/disable test mode.
-.bank 0 slot 0
-.section "Game states" free
-  ; ---------------------------------------------------------------------------
-  game_states:
-    .dw initialize_metasprite_demo, run_metasprite_demo
-    __:
-  ; ---------------------------------------------------------------------------
-.ends
 
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
@@ -153,6 +145,10 @@
     ld h,(hl)           ; Get MSB from table.
     ld l,a              ; HL now contains the address of the state handler.
     jp (hl)             ; Jump to this handler - note, not call!
+  ; ---------------------------------------------------------------------------
+  game_states:
+    .dw initialize_metasprite_demo, run_metasprite_demo
+    __:
   ; ---------------------------------------------------------------------------
 .ends
 
