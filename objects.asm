@@ -17,36 +17,27 @@
   banks 8
 .endro
 ;
-; -----------------------------------------------------------------------------
-; GLOBAL DEFINITIONS
-; -----------------------------------------------------------------------------
 .include "libraries/sms_constants.asm"
 
-; Remove comment to enable unit testing
-;.equ TEST_MODE
+;.equ TEST_MODE           ; Enable/disable test mode.
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
 
 .bank 0 slot 0
 .section "Game states" free
+  ; ---------------------------------------------------------------------------
   game_states:
-    .dw initialize_metasprite_demo, run_metasprite_demo 
+    .dw initialize_metasprite_demo, run_metasprite_demo
     __:
+  ; ---------------------------------------------------------------------------
 .ends
-.macro SET_GAME_STATE ARGS GAME_STATE
-  ld hl,GAME_STATE
-  ld de,game_states
-  ld b,_sizeof_game_states
-  call search_word_array
-  ld (game_state),a
-.endm
-
 
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
 .include "libraries/input_lib.asm"
 .include "libraries/tiny_games.asm"
+.include "libraries/subroutines.asm"
 
 ; -----------------------------------------------------------------------------
 .ramsection "Variables" slot 3
