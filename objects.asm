@@ -19,7 +19,7 @@
 ;
 .include "libraries/sms_constants.asm"
 
-.equ TEST_MODE           ; Enable/disable test mode.
+;.equ TEST_MODE           ; Enable/disable test mode.
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
@@ -117,22 +117,8 @@
     ld hl,vdp_register_init
     call initialize_vdp_registers
     call clear_vram
-    
-    ld a,1
-    ld b,BORDER_COLOR
-    call set_register
-    ld a,0
-    ld b,32
-    ld hl,all_black_palette
-    call load_cram
-    jp +
-      sweetie16_palette:
-        .db $00 $00 $11 $12 $17 $1B $2E $19 $14 $10 $35 $38 $3D $3F $2A $15
-        .db $00 $00 $11 $12 $17 $1B $2E $19 $14 $10 $35 $38 $3D $3F $2A $15
-      all_black_palette:
-        .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
-        .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 
-    +:
+    call clear_cram
+
 
     ; Seed the randomizer.
     ld hl,my_seed

@@ -245,6 +245,16 @@
 ; -----------------------------------------------------------------------------
 .section "Misc. VDP functions" free
 ; -----------------------------------------------------------------------------
+  clear_cram:
+    ld a,0
+    ld b,32
+    ld hl,all_black_palette
+    call load_cram
+  ret
+    all_black_palette:
+      .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+      .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 
+  
   clear_vram:
     ; Write 00 to all vram addresses.
     ; Uses AF, BC
