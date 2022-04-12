@@ -153,15 +153,16 @@
 ; -----------------------------------------------------------------------------
 .section "tests" free
   initialize_test_bench:
-      ld a,0
-      ld b,32
-      ld hl,test_palette
-      call load_cram
+    INITIALIZE_VDP test_palette 0
 
-      ld a,ENABLED
-      call set_display
+    ei
+    halt
+    halt
 
-      jp run_test_bench
+    ld a,ENABLED
+    call set_display
+
+    jp run_test_bench
 
       test_palette:
         .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00

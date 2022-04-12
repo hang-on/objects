@@ -107,13 +107,12 @@
 ; -----------------------------------------------------------------------------
   init:
   ; Run this function once (on game load/reset). 
-    INITIALIZE_VDP all_black_palette
+    INITIALIZE_VDP all_black_palette 0
     jp +
       all_black_palette:
         .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
         .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 
     +:
-
 
     ; Seed the randomizer.
     ld hl,my_seed

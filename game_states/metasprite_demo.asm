@@ -4,15 +4,12 @@
 ; -----------------------------------------------------------------------------
   initialize_metasprite_demo:
     di
-    INITIALIZE_VDP sweetie16_palette
+    INITIALIZE_VDP sweetie16_palette 1
     jp +
       sweetie16_palette:
         .db $00 $00 $11 $12 $17 $1B $2E $19 $14 $10 $35 $38 $3D $3F $2A $15
         .db $23 $00 $11 $12 $17 $1B $2E $19 $14 $10 $35 $38 $3D $3F $2A $15
     +:
-    ld a,1
-    ld b,BORDER_COLOR
-    call set_register
 
     call refresh_sat_handler
     call refresh_input_ports
