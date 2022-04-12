@@ -19,7 +19,7 @@
 ;
 .include "libraries/sms_constants.asm"
 
-;.equ TEST_MODE           ; Enable/disable test mode.
+.equ TEST_MODE           ; Enable/disable test mode.
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
@@ -132,9 +132,6 @@
       all_black_palette:
         .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
         .db $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 
-      test_palette:
-        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
-        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
     +:
 
     ; Seed the randomizer.
@@ -159,6 +156,9 @@
       ld a,ENABLED
       call set_display
       jp test_bench
+      test_palette:
+        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
     .endif
 
     SET_GAME_STATE initialize_metasprite_demo
