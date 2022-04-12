@@ -20,10 +20,6 @@
 .include "libraries/sms_constants.asm"
 
 ;.equ TEST_MODE           ; Enable/disable test mode.
-.ifdef TEST_MODE
-  .equ USE_TEST_KERNEL
-.endif
-
 .bank 0 slot 0
 .section "Game states" free
   ; ---------------------------------------------------------------------------
@@ -33,6 +29,9 @@
   ; ---------------------------------------------------------------------------
 .ends
 
+.ifdef TEST_MODE
+  .equ USE_TEST_KERNEL
+.endif
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
 .include "libraries/input_lib.asm"
@@ -119,32 +118,18 @@
     call clear_vram
     call clear_cram
 
-
     ; Seed the randomizer.
     ld hl,my_seed
-    ld a,(hl)
-    ld (rnd_seed),a
-    inc hl
-    ld a,(hl)
-    ld (rnd_seed+1),a
+    ld de,rnd_seed
+    ldi
+    ldi
     jp +
       my_seed:
       .dbrnd 2, 0, 255
     +:
 
-
     .ifdef TEST_MODE
-      ld a,0
-      ld b,32
-      ld hl,test_palette
-      call load_cram
-
-      ld a,ENABLED
-      call set_display
-      jp test_bench
-      test_palette:
-        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
-        .db $00 $2E $17 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+      jp initialize_test_bench
     .endif
 
     SET_GAME_STATE initialize_metasprite_demo
