@@ -1,7 +1,7 @@
 PRJNAME := objects
 OUTPUT := binaries/
 
-$(OUTPUT)$(PRJNAME).sms: $(PRJNAME).asm libraries/* *.asm
+$(OUTPUT)$(PRJNAME).sms: $(PRJNAME).asm libraries/* game_states/* *.asm
 	@C:\Users\ANSJ\Documents\wla_dx_9.12\wla-z80.exe -o $(PRJNAME).o $(PRJNAME).asm
 	@echo [objects] > linkfile
 	@echo $(PRJNAME).o >> linkfile

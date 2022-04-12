@@ -23,8 +23,8 @@
     ld a,ENABLED
     call set_display
 
-    ld a,RUN_METASPRITE_DEMO
-    ld (game_state),a
+    SET_GAME_STATE run_metasprite_demo
+
   jp main_loop
 
 

@@ -28,14 +28,25 @@
   .equ USE_TEST_KERNEL
 .endif
 
+.bank 0 slot 0
+.section "Game states" free
+  game_states:
+    .dw initialize_metasprite_demo, run_metasprite_demo 
+    __:
+.ends
+.macro SET_GAME_STATE ARGS GAME_STATE
+  ld hl,GAME_STATE
+  ld de,game_states
+  ld b,_sizeof_game_states
+  call search_word_array
+  ld (game_state),a
+.endm
+
+
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
 .include "libraries/input_lib.asm"
 .include "libraries/tiny_games.asm"
-
-.include "subroutine_workshop.asm"
-.include "game_states/tests.asm"
-.include "game_states/metasprite_demo.asm"        
 
 ; -----------------------------------------------------------------------------
 .ramsection "Variables" slot 3
@@ -159,9 +170,8 @@
       jp test_bench
     .endif
 
-    ld a,0
-    ld (game_state),a
-    
+    SET_GAME_STATE initialize_metasprite_demo
+
   jp main_loop
 
     vdp_register_init:
@@ -182,11 +192,8 @@
     ld l,a              ; HL now contains the address of the state handler.
     jp (hl)             ; Jump to this handler - note, not call!
   ; ---------------------------------------------------------------------------
-  .equ INITIALIZE_METASPRITE_DEMO 0
-  .equ RUN_METASPRITE_DEMO 1
-    game_states:
-    .dw initialize_metasprite_demo, run_metasprite_demo 
-
-
-
 .ends
+
+.include "subroutine_workshop.asm"
+.include "game_states/tests.asm"
+.include "game_states/metasprite_demo.asm"        
