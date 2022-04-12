@@ -23,20 +23,10 @@
 .include "libraries/sms_constants.asm"
 
 ; Remove comment to enable unit testing
-.equ TEST_MODE
+;.equ TEST_MODE
 .ifdef TEST_MODE
   .equ USE_TEST_KERNEL
 .endif
-
-.bank 0 slot 0
-.section "Game states" free
-  .equ INITIALIZE_PART_0 0
-  .equ RUN_PART_0 1
-  .equ INITIAL_GAMESTATE INITIALIZE_PART_0
-    game_state_jump_table:
-    .dw initialize_part_0, run_part_0 
-.ends
-
 
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
@@ -44,7 +34,8 @@
 .include "libraries/tiny_games.asm"
 
 .include "subroutine_workshop.asm"
-.include "tests.asm"        
+.include "tests.asm"
+.include "game_states/metasprite_demo.asm"        
 
 ; -----------------------------------------------------------------------------
 .ramsection "Variables" slot 3
@@ -190,47 +181,12 @@
     ld l,a              ; HL now contains the address of the state handler.
     jp (hl)             ; Jump to this handler - note, not call!
   ; ---------------------------------------------------------------------------
-
-  ; ---------------------------------------------------------------------------
-  initialize_part_0:
-    di
-    ld hl,vdp_register_init
-    call initialize_vdp_registers    
-    call clear_vram
-
-    ld a,1
-    ld b,BORDER_COLOR
-    call set_register
-
-    call refresh_sat_handler
-    call refresh_input_ports
-
-    ei
-    halt
-    halt
-    call load_sat
-    
-    ld a,ENABLED
-    call set_display
-
-    ld a,RUN_PART_0
-    ld (game_state),a
-  jp main_loop
+  .equ INITIALIZE_PART_0 0
+  .equ RUN_PART_0 1
+  .equ INITIAL_GAMESTATE INITIALIZE_PART_0
+    game_state_jump_table:
+    .dw initialize_part_0, run_part_0 
 
 
-  run_part_0:
-    call wait_for_vblank
-    
-    ; Begin vblank critical code (DRAW) ---------------------------------------
-    call load_sat
-
-    ; End of critical vblank routines. ----------------------------------------
-
-    ; Begin general updating (UPDATE).
-    
-    call refresh_sat_handler
-    call refresh_input_ports
-
-  jp main_loop
 
 .ends
