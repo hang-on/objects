@@ -17,6 +17,7 @@
 ; --- Load Video RAM: Load a string of bytes into VRAM.
 ; --- Setup Video RAM write: Send a destination address to VDP, but not data.
 ; --- Wait for VBLANK: Keep looping until VBLANK interrupt is detected.
+; Macros
 
 ; -----------------------------------------------------------------------------
 ; SAT Handler
@@ -261,7 +262,7 @@
       or c
     jp nz,-
   ret  
-  
+
   load_cram:
     ; Consecutively load a number of color values into color ram (CRAM), given a
     ; destination color to write the first value.
@@ -344,3 +345,20 @@
     ld (hl),a
   ret
 .ends
+; -----------------------------------------------------------------------------
+
+; -----------------------------------------------------------------------------
+; VDP MACROS
+; -----------------------------------------------------------------------------
+  .macro INITIALIZE_VDP ARGS PALETTE BORDERCOL
+    ld hl,vdp_register_init
+    call initialize_vdp_registers    
+    call clear_vram
+    ld a,0
+    ld b,32
+    ld hl,PALETTE
+    call load_cram
+    ld a,BORDERCOL
+    ld b,BORDER_COLOR
+    call set_register
+  .endm
