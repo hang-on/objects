@@ -350,8 +350,8 @@
 ; -----------------------------------------------------------------------------
 .section "VDP macros" free 
 ; -----------------------------------------------------------------------------
-  .macro INITIALIZE_VDP ARGS PALETTE BORDERCOL
-    ld hl,vdp_register_init
+  .macro INITIALIZE_VDP ARGS REGISTERS PALETTE BORDERCOL
+    ld hl,REGISTERS
     call initialize_vdp_registers    
     call clear_vram
     ld a,0
@@ -362,7 +362,7 @@
     ld b,BORDER_COLOR
     call set_register
   .endm
-    vdp_register_init:
+    standard_config:
     .db %01100110  %10100000 $ff $ff $ff
     .db $ff $fb $f0 $00 $00 $00
 

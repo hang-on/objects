@@ -4,7 +4,7 @@
 ; -----------------------------------------------------------------------------
   initialize_metasprite_demo:
     DISABLE_INTERRUPTS
-      INITIALIZE_VDP sweetie16_palette 1
+      INITIALIZE_VDP standard_config sweetie16_palette 1
       jp +
         sweetie16_palette:
           .db $00 $00 $11 $12 $17 $1B $2E $19 $14 $10 $35 $38 $3D $3F $2A $15
