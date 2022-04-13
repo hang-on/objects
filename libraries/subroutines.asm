@@ -3,7 +3,7 @@
 .macro SET_GAME_STATE ARGS GAME_STATE
   ld hl,GAME_STATE
   ld de,game_states
-  ld b,_sizeof_game_states
+  ld b,_sizeof_game_states/2
   call search_word_array
   ld (game_state),a
 .endm
