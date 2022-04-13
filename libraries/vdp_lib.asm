@@ -362,3 +362,14 @@
     ld b,BORDER_COLOR
     call set_register
   .endm
+
+  .macro ENABLE_INTERRUPTS_AND_SKIP_TO_VBLANK
+    ei
+    .rept 4
+      halt
+    .endr
+  .endm
+
+  .macro DISABLE_INTERRUPTS
+    di
+  .endm
