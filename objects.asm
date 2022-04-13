@@ -26,6 +26,7 @@
   .equ USE_TEST_KERNEL
 .endif
 
+.bank 0 slot 0
 ; Hierarchy: Most fundamental first. 
 .include "libraries/vdp_lib.asm"
 .include "libraries/input_lib.asm"
@@ -126,14 +127,10 @@
 
     .ifdef TEST_MODE
       jp initialize_test_bench
+    .else
+      SET_GAME_STATE initialize_metasprite_demo
+      jp main_loop
     .endif
-    SET_GAME_STATE initialize_metasprite_demo
-
-  jp main_loop
-
-    vdp_register_init:
-    .db %01100110  %10100000 $ff $ff $ff
-    .db $ff $fb $f0 $00 $00 $00
 
   ; ---------------------------------------------------------------------------
   main_loop:

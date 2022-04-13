@@ -348,7 +348,7 @@
 ; -----------------------------------------------------------------------------
 
 ; -----------------------------------------------------------------------------
-; VDP MACROS
+.section "VDP macros" free 
 ; -----------------------------------------------------------------------------
   .macro INITIALIZE_VDP ARGS PALETTE BORDERCOL
     ld hl,vdp_register_init
@@ -362,10 +362,14 @@
     ld b,BORDER_COLOR
     call set_register
   .endm
+    vdp_register_init:
+    .db %01100110  %10100000 $ff $ff $ff
+    .db $ff $fb $f0 $00 $00 $00
+
 
   .macro ENABLE_INTERRUPTS_AND_SKIP_TO_VBLANK
     ei
-    .rept 4
+    .rept 8
       halt
     .endr
   .endm
@@ -373,3 +377,5 @@
   .macro DISABLE_INTERRUPTS
     di
   .endm
+
+.ends
